@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Nav, Card } from "react-bootstrap";
+import { Nav, Card, Form, Button } from "react-bootstrap";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -10,117 +10,83 @@ function SQLNotes() {
     AOS.init({ duration: 800, once: true });
   }, []);
 
-  // SQL Topics Data
+  // ✅ SQL Topics Data with Gradients + Images
   const topics = {
     intro: {
       title: "Introduction to SQL",
-      content: `SQL (Structured Query Language) is the standard language for interacting with relational databases. 
-It helps in inserting, updating, deleting, and retrieving data efficiently. 
-Every developer and data professional should master SQL.`,
+      content: `SQL (Structured Query Language) is the standard language for interacting with relational databases.`,
+      gradient: "linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d)",
+      image: "https://img.icons8.com/color/96/database.png",
     },
     select: {
       title: "Basic SELECT Query",
-      content: `SELECT statements are used to fetch data from a database.
-      
-Example:
-SELECT * FROM Employees WHERE Department = 'IT';`,
+      content: `SELECT * FROM Employees WHERE Department = 'IT';`,
+      gradient: "linear-gradient(135deg, #11998e, #38ef7d)",
+      image: "https://img.icons8.com/fluency/96/table.png",
     },
     where: {
       title: "WHERE Clause",
-      content: `WHERE filters records based on conditions.
-
-Example:
-SELECT name, salary FROM Employees WHERE salary > 50000;`,
+      content: `SELECT name, salary FROM Employees WHERE salary > 50000;`,
+      gradient: "linear-gradient(135deg, #f7971e, #ffd200)",
+      image: "https://img.icons8.com/fluency/96/filter.png",
     },
     joins: {
       title: "SQL JOINs",
-      content: `JOIN combines rows from multiple tables.
-
-Example:
-SELECT e.name, d.department_name
-FROM Employees e
-JOIN Departments d ON e.dept_id = d.id;`,
+      content: `JOIN combines rows from multiple tables.`,
+      gradient: "linear-gradient(135deg, #654ea3, #eaafc8)",
+      image: "https://img.icons8.com/fluency/96/join.png",
     },
     groupby: {
       title: "GROUP BY & HAVING",
-      content: `GROUP BY groups rows, HAVING filters groups.
-
-Example:
-SELECT department, COUNT(*) 
-FROM Employees 
-GROUP BY department 
-HAVING COUNT(*) > 5;`,
+      content: `SELECT department, COUNT(*) FROM Employees GROUP BY department HAVING COUNT(*) > 5;`,
+      gradient: "linear-gradient(135deg, #36d1dc, #5b86e5)",
+      image: "https://img.icons8.com/color/96/group.png",
     },
     subqueries: {
       title: "Subqueries",
-      content: `A subquery is a query inside another query.
-
-Example:
-SELECT name FROM Employees 
-WHERE salary > (SELECT AVG(salary) FROM Employees);`,
+      content: `SELECT name FROM Employees WHERE salary > (SELECT AVG(salary) FROM Employees);`,
+      gradient: "linear-gradient(135deg, #ff512f, #dd2476)",
+      image: "https://img.icons8.com/fluency/96/query.png",
     },
     views: {
       title: "Views",
-      content: `A view is a virtual table based on a SELECT query.
-
-Example:
-CREATE VIEW IT_Employees AS
-SELECT name, department FROM Employees WHERE department = 'IT';`,
+      content: `CREATE VIEW IT_Employees AS SELECT name, department FROM Employees WHERE department = 'IT';`,
+      gradient: "linear-gradient(135deg, #3a1c71, #d76d77, #ffaf7b)",
+      image: "https://img.icons8.com/fluency/96/view-file.png",
     },
     triggers: {
       title: "Triggers",
-      content: `A trigger runs automatically when an event occurs.
-
-Example:
-CREATE TRIGGER after_insert_employee
-AFTER INSERT ON Employees
-FOR EACH ROW
-BEGIN
-   INSERT INTO Logs(message) VALUES ('New Employee Added');
-END;`,
+      content: `CREATE TRIGGER after_insert_employee AFTER INSERT ON Employees FOR EACH ROW BEGIN INSERT INTO Logs(message) VALUES ('New Employee Added'); END;`,
+      gradient: "linear-gradient(135deg, #1d2b64, #f8cdda)",
+      image: "https://img.icons8.com/color/96/automation.png",
     },
     transactions: {
       title: "Transactions",
-      content: `Transactions ensure data consistency.
-
-Example:
-BEGIN;
-UPDATE Accounts SET balance = balance - 500 WHERE id=1;
-UPDATE Accounts SET balance = balance + 500 WHERE id=2;
-COMMIT;`,
+      content: `BEGIN; UPDATE Accounts SET balance = balance - 500 WHERE id=1; COMMIT;`,
+      gradient: "linear-gradient(135deg, #0f2027, #2c5364, #203a43)",
+      image: "https://img.icons8.com/color/96/money-transfer.png",
     },
     indexes: {
       title: "Indexes",
-      content: `Indexes improve query performance.
-
-Example:
-CREATE INDEX idx_emp_name ON Employees(name);`,
+      content: `CREATE INDEX idx_emp_name ON Employees(name);`,
+      gradient: "linear-gradient(135deg, #ff9a9e, #fecfef)",
+      image: "https://img.icons8.com/fluency/96/index.png",
     },
     advanced: {
       title: "Advanced SQL (CTE, Window Functions)",
-      content: `CTEs and Window Functions are advanced SQL concepts.
-
-CTE Example:
-WITH HighSalary AS (
-  SELECT name, salary FROM Employees WHERE salary > 60000
-)
-SELECT * FROM HighSalary;
-
-Window Function Example:
-SELECT name, department, 
-RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS rank
-FROM Employees;`,
+      content: `WITH HighSalary AS (SELECT name, salary FROM Employees WHERE salary > 60000) SELECT * FROM HighSalary;`,
+      gradient: "linear-gradient(135deg, #4e54c8, #8f94fb)",
+      image: "https://img.icons8.com/fluency/96/code-file.png",
     },
   };
 
   return (
     <div>
-      {/* ✅ Intro Hero Section */}
+      {/* ✅ Intro Section */}
       <section
         className="text-light text-center py-5"
         style={{
-          background:
-            "linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d)",
+          background: "linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d)",
           minHeight: "250px",
         }}
         data-aos="fade-down"
@@ -134,7 +100,7 @@ FROM Employees;`,
         </div>
       </section>
 
-      {/* ✅ Main Content with Sidebar + Cards */}
+      {/* ✅ Main Layout */}
       <div className="container-fluid mt-4">
         <div className="row">
           {/* Sidebar */}
@@ -142,8 +108,7 @@ FROM Employees;`,
             <Nav
               className="flex-column nav-pills shadow p-3 rounded"
               style={{
-                background:
-                  "linear-gradient(180deg, #16222A, #3A6073)",
+                background: "linear-gradient(180deg, #16222A, #3A6073)",
               }}
             >
               {Object.keys(topics).map((key, index) => (
@@ -169,13 +134,20 @@ FROM Employees;`,
             <Card
               className="shadow-lg border-0"
               style={{
-                background:
-                  "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
+                background: topics[activeTopic].gradient,
+                color: "#fff",
               }}
               data-aos="zoom-in"
             >
-              <Card.Body>
-                <Card.Title className="fw-bold fs-3 text-dark">
+              <Card.Body className="text-center">
+                <img
+                  src={topics[activeTopic].image}
+                  alt="SQL"
+                  className="mb-3"
+                  style={{ width: "80px" }}
+                  data-aos="flip-left"
+                />
+                <Card.Title className="fw-bold fs-3">
                   {topics[activeTopic].title}
                 </Card.Title>
                 <Card.Text
@@ -191,6 +163,53 @@ FROM Employees;`,
             </Card>
           </div>
         </div>
+      </div>
+
+      {/* ✅ Feedback Form */}
+      <div className="container my-5" data-aos="fade-up">
+        <h2 className="text-center fw-bold mb-4">💬 Share Your Feedback</h2>
+        <Card className="shadow-lg p-4 border-0">
+          <Form>
+            <Form.Group className="mb-3">
+              <Form.Label>Name</Form.Label>
+              <Form.Control type="text" placeholder="Enter your name" />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="email" placeholder="Enter your email" />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Your Feedback</Form.Label>
+              <Form.Control as="textarea" rows={3} />
+            </Form.Group>
+
+            <Button variant="primary" className="rounded-pill">
+              Submit
+            </Button>
+          </Form>
+        </Card>
+      </div>
+
+      {/* ✅ Try SQL Form */}
+      <div className="container my-5" data-aos="fade-up">
+        <h2 className="text-center fw-bold mb-4">⚡ Try Writing SQL Query</h2>
+        <Card className="shadow-lg p-4 border-0">
+          <Form>
+            <Form.Group>
+              <Form.Label>Enter SQL Query</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={4}
+                placeholder="Example: SELECT * FROM Employees;"
+              />
+            </Form.Group>
+            <Button variant="success" className="mt-3 rounded-pill">
+              Run (Demo Only)
+            </Button>
+          </Form>
+        </Card>
       </div>
     </div>
   );

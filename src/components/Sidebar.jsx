@@ -4,9 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 function Sidebar() {
   const location = useLocation();
 
-  // Active link style
-  const isActive = (path) =>
-    location.pathname === path ? "active-link" : "";
+  const isActive = (path) => (location.pathname === path ? "active-side" : "");
 
   return (
     <div
@@ -14,7 +12,7 @@ function Sidebar() {
       style={{
         width: "240px",
         minHeight: "100vh",
-        background: "linear-gradient(180deg, #1a2a6c, #b21f1f, #fdbb2d)",
+        background: "linear-gradient(180deg, #1f4037, #99f2c8)",
         color: "white",
       }}
     >
@@ -23,66 +21,44 @@ function Sidebar() {
       </div>
 
       <div className="list-group list-group-flush flex-grow-1">
-        <Link
-          className={`list-group-item list-group-item-action sidebar-link ${isActive(
-            "/java"
-          )}`}
-          to="/java"
-        >
-          Java Notes
-        </Link>
-        <Link
-          className={`list-group-item list-group-item-action sidebar-link ${isActive(
-            "/sql"
-          )}`}
-          to="/sql"
-        >
-          SQL Notes
-        </Link>
-        <Link
-          className={`list-group-item list-group-item-action sidebar-link ${isActive(
-            "/htmlcss"
-          )}`}
-          to="/htmlcss"
-        >
-          HTML & CSS
-        </Link>
-        <Link
-          className={`list-group-item list-group-item-action sidebar-link ${isActive(
-            "/about"
-          )}`}
-          to="/about"
-        >
-          About Us
-        </Link>
-        <Link
-          className={`list-group-item list-group-item-action sidebar-link ${isActive(
-            "/contact"
-          )}`}
-          to="/contact"
-        >
-          Contact
-        </Link>
+        {[
+          { to: "/java", label: "Java Notes" },
+          { to: "/sql", label: "SQL Notes" },
+          { to: "/htmlcss", label: "HTML & CSS" },
+          { to: "/about", label: "About Us" },
+          { to: "/contact", label: "Contact" },
+        ].map((link, i) => (
+          <Link
+            key={i}
+            to={link.to}
+            className={`list-group-item sidebar-link ${isActive(link.to)}`}
+          >
+            {link.label}
+          </Link>
+        ))}
       </div>
 
-      {/* Extra Styling */}
       <style>{`
         .sidebar-link {
           background: transparent;
           color: white !important;
-          transition: all 0.3s ease-in-out;
           border: none;
           font-weight: 500;
-          padding: 15px;
+          padding: 14px;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .sidebar-link:hover {
-          background: rgba(255, 255, 255, 0.2);
-          transform: translateX(5px);
+          transform: translateX(8px) scale(1.05);
+          box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+          background: rgba(255,255,255,0.1);
+          border-radius: 12px;
         }
-        .active-link {
-          background: rgba(255, 255, 255, 0.3) !important;
-          font-weight: bold;
-          border-left: 4px solid #ffcc00;
+        .active-side {
+          font-weight: 600;
+          color: #ffcc00 !important;
+          background: rgba(255,255,255,0.2);
+          border-radius: 12px;
+          transform: scale(1.05);
         }
       `}</style>
     </div>

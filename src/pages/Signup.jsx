@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
+import { FaUser, FaEnvelope, FaLock, FaGoogle, FaLinkedin, FaGithub } from "react-icons/fa";
 
 function Signup() {
   const [username, setUsername] = useState("");
@@ -10,10 +10,10 @@ function Signup() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password !== confirm) {
-      alert("Passwords do not match");
+      alert("Passwords do not match ❌");
       return;
     }
-    alert("Signup successful! You can now login.");
+    alert("🎉 Signup successful! You can now login.");
     setUsername("");
     setEmail("");
     setPassword("");
@@ -24,19 +24,26 @@ function Signup() {
     <div
       className="d-flex justify-content-center align-items-center vh-100"
       style={{
-        background: "linear-gradient(135deg, #ff9a9e, #fad0c4)",
+        background: "linear-gradient(270deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb)",
+        backgroundSize: "800% 800%",
+        animation: "gradientBG 15s ease infinite",
       }}
     >
       <div
         className="card p-4 shadow-lg border-0"
         style={{
           width: "100%",
-          maxWidth: "420px",
-          borderRadius: "15px",
-          animation: "slideUp 1s ease-in-out",
+          maxWidth: "430px",
+          borderRadius: "20px",
+          backdropFilter: "blur(12px)",
+          background: "rgba(255, 255, 255, 0.15)",
+          color: "#fff",
+          animation: "zoomIn 1s ease-out",
         }}
       >
-        <h2 className="text-center mb-4 text-success fw-bold">Sign Up</h2>
+        <h2 className="text-center mb-4 fw-bold" style={{ color: "#00c853" }}>
+          Create Account 🌟
+        </h2>
         <form onSubmit={handleSubmit}>
           {/* Username */}
           <div className="mb-3">
@@ -110,14 +117,37 @@ function Signup() {
             </div>
           </div>
 
-          <button type="submit" className="btn btn-success w-100 fw-bold">
+          {/* Sign Up Button */}
+          <button
+            type="submit"
+            className="btn btn-success w-100 fw-bold mb-3"
+            style={{ borderRadius: "30px" }}
+          >
             Sign Up
           </button>
         </form>
 
-        <p className="text-center mt-3 text-muted">
+        {/* Social Signup */}
+        <div className="text-center text-light mb-3">Or sign up with</div>
+        <div className="d-flex justify-content-around">
+          <button className="btn btn-light d-flex align-items-center gap-2 px-3 py-2"
+            style={{ borderRadius: "30px" }}>
+            <FaGoogle color="#DB4437" /> Google
+          </button>
+          <button className="btn btn-light d-flex align-items-center gap-2 px-3 py-2"
+            style={{ borderRadius: "30px" }}>
+            <FaLinkedin color="#0A66C2" /> LinkedIn
+          </button>
+          <button className="btn btn-light d-flex align-items-center gap-2 px-3 py-2"
+            style={{ borderRadius: "30px" }}>
+            <FaGithub /> GitHub
+          </button>
+        </div>
+
+        {/* Login Link */}
+        <p className="text-center mt-3 text-light">
           Already have an account?{" "}
-          <a href="/login" className="text-success fw-semibold">
+          <a href="/login" className="fw-bold text-success">
             Login
           </a>
         </p>
@@ -126,9 +156,18 @@ function Signup() {
       {/* Animations */}
       <style>
         {`
-          @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+          @keyframes gradientBG {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+          }
+          @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+          }
+          .card:hover {
+            transform: translateY(-5px) scale(1.02);
+            transition: all 0.3s ease;
           }
         `}
       </style>

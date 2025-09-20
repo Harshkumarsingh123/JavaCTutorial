@@ -30,13 +30,13 @@ function App() {
     localStorage.setItem("loggedIn", status);
   };
 
-  // Sidebar should NOT appear on these pages
-  const hideSidebarPaths = ["/", "/login", "/signup"];
-  const hideSidebar = hideSidebarPaths.includes(location.pathname);
+  // Only show sidebar on notes pages
+  const showSidebarPaths = ["/java", "/sql", "/htmlcss"];
+  const showSidebar = showSidebarPaths.includes(location.pathname) && isLoggedIn;
 
   return (
     <div className={darkMode ? "dark-mode" : ""}>
-      {/* ✅ Navbar always shown */}
+      {/* Navbar always shown */}
       <Navbar
         isLoggedIn={isLoggedIn}
         toggleLogin={toggleLogin}
@@ -44,8 +44,8 @@ function App() {
       />
 
       <div className="d-flex">
-        {/* ✅ Sidebar hidden on Home/Login/Signup */}
-        {!hideSidebar && isLoggedIn && <Sidebar />}
+        {/* Sidebar only on notes pages */}
+        {showSidebar && <Sidebar />}
 
         <div className="flex-grow-1 p-3">
           <Routes>
